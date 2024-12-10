@@ -1,0 +1,26 @@
+BasedOnStyle: LLVM
+IndentWidth: 4
+AccessModifierOffset: -4
+SpaceBeforeParens: ControlStatementsExceptControlMacros
+PointerAlignment: Right
+AllowShortFunctionsOnASingleLine: Empty
+BreakBeforeBraces: Attach
+ColumnLimit: 100
+SeparateDefinitionBlocks: Always
+IncludeIsMainSourceRegex: '([.]cpp)$'
+IncludeIsMainRegex: '([.]h)$'
+
+IncludeBlocks: Regroup
+IncludeCategories:
+  # Standard Template Library (STL) libraries
+  - Regex:      ^<c|<[^/.]+>
+    Priority:   1
+  # SFML Libraries
+  - Regex:      ^<SFML
+    Priority:   2
+  # Libraries that contain slashes, used mainly for generic external libraries
+  - Regex:      /
+    Priority:   3
+  # My includes ending in .h
+  - Regex:      \.h$
+    Priority:   4

@@ -1,14 +1,14 @@
 #include <threadmill.h>
 
-Threadmill::Threadmill(int y, float packageSpeed) 
-        : y_(y), packageSpeed_(packageSpeed), semaphore_(0), isActive_(false), stop_(false),   
-          lostPackages_(0) { 
-        threadmillShape_.setSize(sf::Vector2f(THREADMILL_WIDTH, THREADMILL_HEIGHT));
-        threadmillShape_.setFillColor(THREADMILL_COLOR);
-        threadmillShape_.setPosition(0.0f, y_);
+Threadmill::Threadmill(int y, float packageSpeed)
+    : y_(y), packageSpeed_(packageSpeed), semaphore_(0), isActive_(false), stop_(false),
+      lostPackages_(0) {
+    threadmillShape_.setSize(sf::Vector2f(THREADMILL_WIDTH, THREADMILL_HEIGHT));
+    threadmillShape_.setFillColor(THREADMILL_COLOR);
+    threadmillShape_.setPosition(0.0f, y_);
 
-        thread_ = std::thread(&Threadmill::run, this);
-    }
+    thread_ = std::thread(&Threadmill::run, this);
+}
 
 Threadmill::~Threadmill() {
     {
@@ -36,7 +36,7 @@ void Threadmill::removePackage(int id) {
 void Threadmill::setPackageSpeed(float newSpeed) {
     std::lock_guard<std::mutex> lock(mtx_);
     packageSpeed_ = newSpeed;
-    for (auto& [id, package] : packages_) {
+    for (auto &[id, package] : packages_) {
         package.setSpeed(newSpeed);
     }
 }
@@ -49,7 +49,7 @@ void Threadmill::clearPackages() {
 void Threadmill::activate() {
     {
         std::lock_guard<std::mutex> lock(mtx_);
-        if (!isActive_) { 
+        if (!isActive_) {
             isActive_ = true;
             semaphore_.release();
         }
@@ -68,26 +68,26 @@ int Threadmill::getAndResetLostPackages() {
     return temp;
 }
 
-void Threadmill::draw(sf::RenderWindow& window, sf::Font& font) {
+void Threadmill::draw(sf::RenderWindow &window, sf::Font &font) {
     std::lock_guard<std::mutex> lock(mtx_);
     window.draw(threadmillShape_);
 
-    std::vector<Package*> sortedPackages;
-    for (auto& [id, package] : packages_) {
+    std::vector<Package *> sortedPackages;
+    for (auto &[id, package] : packages_) {
         if (package.isValid()) {
             sortedPackages.push_back(&package);
         }
     }
 
-    std::sort(sortedPackages.begin(), sortedPackages.end(), [](Package* a, Package* b) {
-        return a->getX() < b->getX();
-    });
+    std::sort(sortedPackages.begin(), sortedPackages.end(),
+              [](Package *a, Package *b) { return a->getX() < b->getX(); });
 
-    std::vector<std::vector<Package*>> groups;
+    std::vector<std::vector<Package *>> groups;
     std::vector<bool> grouped(sortedPackages.size(), false);
     for (size_t i = 0; i < sortedPackages.size(); ++i) {
-        if (grouped[i]) continue;
-        std::vector<Package*> group;
+        if (grouped[i])
+            continue;
+        std::vector<Package *> group;
         group.push_back(sortedPackages[i]);
         grouped[i] = true;
         float x1 = sortedPackages[i]->getX();
@@ -102,17 +102,17 @@ void Threadmill::draw(sf::RenderWindow& window, sf::Font& font) {
         groups.push_back(group);
     }
 
-    for (auto& [id, package] : packages_) {
+    for (auto &[id, package] : packages_) {
         if (package.isValid()) {
             package.draw(window);
         }
     }
 
-    for (auto& group : groups) {
+    for (auto &group : groups) {
         if (group.size() > 1) {
-            Package* topPackage = nullptr;
+            Package *topPackage = nullptr;
             float maxX = -1.0f;
-            for (auto* pkg : group) {
+            for (auto *pkg : group) {
                 if (pkg->getX() > maxX) {
                     maxX = pkg->getX();
                     topPackage = pkg;
@@ -135,22 +135,23 @@ void Threadmill::draw(sf::RenderWindow& window, sf::Font& font) {
 
 std::map<int, Package> Threadmill::getPackages() {
     std::lock_guard<std::mutex> lock(mtx_);
-    return packages_; 
+    return packages_;
 }
 
 void Threadmill::run() {
     while (true) {
-        semaphore_.acquire(); 
+        semaphore_.acquire();
         {
             std::lock_guard<std::mutex> lock(mtx_);
-            if (stop_) break;
+            if (stop_)
+                break;
         }
 
         while (true) {
             {
                 std::lock_guard<std::mutex> lock(mtx_);
                 if (!isActive_ || stop_) {
-                    break; 
+                    break;
                 }
             }
 
@@ -158,7 +159,7 @@ void Threadmill::run() {
             {
                 std::lock_guard<std::mutex> lock(mtx_);
                 std::vector<int> packagesToRemove;
-                for (auto& [id, package] : packages_) {
+                for (auto &[id, package] : packages_) {
                     if (package.isValid()) {
                         package.update(deltaTime);
                         if (package.getX() > WIDTH) {
@@ -180,7 +181,8 @@ void Threadmill::run() {
 
         {
             std::lock_guard<std::mutex> lock(mtx_);
-            if (stop_) break;
+            if (stop_)
+                break;
         }
     }
 }

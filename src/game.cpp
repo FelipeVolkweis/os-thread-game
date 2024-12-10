@@ -1,19 +1,14 @@
-#include <game.h>
 #include <iostream>
+
+#include <game.h>
 
 Game::Game()
     : window(sf::VideoMode(WIDTH, HEIGHT), "Threadmill: The Game"),
-        threadmillTop(THREADMILL_Y_POS_TOP, PACKAGE_SPEED_BASE),
-        threadmillCenter(THREADMILL_Y_POS_CENTER, PACKAGE_SPEED_BASE),
-        threadmillBottom(THREADMILL_Y_POS_BOTTOM, PACKAGE_SPEED_BASE),
-        player(laneYs),
-        rng(std::random_device{}()),
-        distLane(0, 2),
-        spawnTimer(),
-        currentSpawnInterval(PACKAGE_SPAWN_INTERVAL_BASE),
-        spawnIntervalSteps(0),
-        nextId(1)
-{
+      threadmillTop(THREADMILL_Y_POS_TOP, PACKAGE_SPEED_BASE),
+      threadmillCenter(THREADMILL_Y_POS_CENTER, PACKAGE_SPEED_BASE),
+      threadmillBottom(THREADMILL_Y_POS_BOTTOM, PACKAGE_SPEED_BASE), player(laneYs),
+      rng(std::random_device{}()), distLane(0, 2), spawnTimer(),
+      currentSpawnInterval(PACKAGE_SPAWN_INTERVAL_BASE), spawnIntervalSteps(0), nextId(1) {
     window.setFramerateLimit(60);
 
     if (!font.loadFromFile(FONT_PATH)) {
@@ -79,17 +74,17 @@ void Game::handlePlayerAction(sf::Keyboard::Key key) {
 
 void Game::collectPackage() {
     int currentLane = player.getCurrentLane();
-    Threadmill* currentThreadmill = getThreadmillByLane(currentLane);
+    Threadmill *currentThreadmill = getThreadmillByLane(currentLane);
     if (currentThreadmill) {
         std::map<int, Package> packages = currentThreadmill->getPackages();
         std::vector<int> collectedPackages;
-        for (auto& [id, package] : packages) {
+        for (auto &[id, package] : packages) {
             if (package.isValid() && player.canGrabPackage(package)) {
                 collectedPackages.push_back(id);
                 score++;
                 updatePackageSpeed();
                 updatePackageSpawnInterval();
-                break; 
+                break;
             }
         }
         for (int id : collectedPackages) {
@@ -150,7 +145,8 @@ void Game::updateLivesText() {
 }
 
 void Game::updatePackageSpeed() {
-    float newSpeed = PACKAGE_SPEED_BASE + (static_cast<int>(score / SCORE_THRESHOLD) * PACKAGE_SPEED_INCREMENT);
+    float newSpeed =
+        PACKAGE_SPEED_BASE + (static_cast<int>(score / SCORE_THRESHOLD) * PACKAGE_SPEED_INCREMENT);
     threadmillTop.setPackageSpeed(newSpeed);
     threadmillCenter.setPackageSpeed(newSpeed);
     threadmillBottom.setPackageSpeed(newSpeed);
@@ -184,12 +180,16 @@ void Game::resetGame() {
     threadmillCenter.addPackage(nextId++);
 }
 
-Threadmill* Game::getThreadmillByLane(int lane) {
+Threadmill *Game::getThreadmillByLane(int lane) {
     switch (lane) {
-        case 0: return &threadmillTop;
-        case 1: return &threadmillCenter;
-        case 2: return &threadmillBottom;
-        default: return nullptr;
+    case 0:
+        return &threadmillTop;
+    case 1:
+        return &threadmillCenter;
+    case 2:
+        return &threadmillBottom;
+    default:
+        return nullptr;
     }
 }
 
@@ -199,7 +199,7 @@ void Game::updateActiveThreadmills() {
     threadmillBottom.deactivate();
 
     int currentLane = player.getCurrentLane();
-    Threadmill* currentThreadmill = getThreadmillByLane(currentLane);
+    Threadmill *currentThreadmill = getThreadmillByLane(currentLane);
     if (currentThreadmill) {
         currentThreadmill->activate();
     }
