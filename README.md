@@ -61,21 +61,21 @@ Antes de compilar e executar o jogo, certifique-se de ter os seguintes component
 
     ```bash
     sudo apt-get update
-    sudo apt-get install libsfml-dev g++ make
+    sudo apt-get install libsfml-dev g++ make git
     ```
 
     #### b. Fedora:
 
     ```bash
     sudo dnf update
-    sudo dnf install SFML-devel g++ make
+    sudo dnf install SFML-devel g++ make git
     ```
 
     #### c. Arch Linux:
 
     ```bash
     sudo pacman -Syu
-    sudo pacman -S sfml g++ make
+    sudo pacman -S sfml g++ make git
     ```
 3. **Compilação**
     ```bash
