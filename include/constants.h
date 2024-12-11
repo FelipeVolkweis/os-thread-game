@@ -23,6 +23,9 @@
 #define LIVES_TEXT_POS_X 10
 #define LIVES_TEXT_POS_Y 40
 #define FONT_PATH "assets/04B_30__.ttf"
+#define PACKAGE_TEXTURE_PATH "assets/caixa.png"
+#define PLAYER_TEXTURE_PATH "assets/trabalhador.png"
+#define THREADMILL_TEXTURE_PATH "assets/esteira.png"
 #define THREADMILL_WIDTH WIDTH
 #define PACKAGE_START_X 0.0f
 #define PLAYER_SIZE 120.0

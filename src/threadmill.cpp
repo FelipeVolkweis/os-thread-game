@@ -204,5 +204,5 @@ void Threadmill::run() {
 }
 
 bool Threadmill::loadTexture() {
-    return threadmillTexture_.loadFromFile("assets/esteira_textura.png");
+    return threadmillTexture_.loadFromFile(THREADMILL_TEXTURE_PATH);
 }

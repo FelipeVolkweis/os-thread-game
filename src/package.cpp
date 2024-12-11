@@ -55,5 +55,5 @@ void Package::setSpeed(float speed) {
 }
 
 bool Package::loadTexture() {
-    return texture_.loadFromFile("assets/caixa.png");
+    return texture_.loadFromFile(PACKAGE_TEXTURE_PATH);
 }

@@ -10,7 +10,7 @@ Game::Game()
       rng(std::random_device{}()), distLane(0, 2), spawnTimer(),
       currentSpawnInterval(PACKAGE_SPAWN_INTERVAL_BASE), spawnIntervalSteps(0), nextId(1) {
     window.setFramerateLimit(60);
-
+    srand(time(NULL));
     loadAssets();
 
     score = SCORE_INITIAL;
@@ -128,9 +128,14 @@ void Game::update(float deltaTime) {
 }
 
 void Game::spawnRandomPackage() {
-    threadmillTop.addPackage(nextId++);
-    threadmillCenter.addPackage(nextId++);
-    threadmillBottom.addPackage(nextId++);
+    int x = rand();
+    if (x % 3 == 0) {
+        threadmillTop.addPackage(nextId++);
+    } else if (x % 3 == 1) {
+        threadmillCenter.addPackage(nextId++);
+    } else {
+        threadmillBottom.addPackage(nextId++);
+    }
 }
 
 void Game::render() {

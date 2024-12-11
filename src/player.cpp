@@ -65,5 +65,5 @@ int Player::getCurrentLane() const {
 }
 
 bool Player::loadTexture() {
-    return texture_.loadFromFile("assets/trabalhador.png");
+    return texture_.loadFromFile(PLAYER_TEXTURE_PATH);
 }
