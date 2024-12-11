@@ -11,9 +11,7 @@ Game::Game()
       currentSpawnInterval(PACKAGE_SPAWN_INTERVAL_BASE), spawnIntervalSteps(0), nextId(1) {
     window.setFramerateLimit(60);
 
-    if (!font.loadFromFile(FONT_PATH)) {
-        std::cout << "Error loading font." << std::endl;
-    }
+    loadAssets();
 
     score = SCORE_INITIAL;
     lives = MAX_LIVES;
@@ -44,6 +42,16 @@ void Game::run() {
         processEvents();
         update(deltaTime);
         render();
+    }
+}
+
+void Game::loadAssets() {
+    if (!font.loadFromFile(FONT_PATH)) {
+        std::cout << "Error loading font." << std::endl;
+    }
+
+    if (!Package::loadTexture()) {
+        std::cout << "Error loading package texture." << std::endl;
     }
 }
 
@@ -126,13 +134,18 @@ void Game::spawnRandomPackage() {
 }
 
 void Game::render() {
-    window.clear();
+    sf::Color backgroundColor(36, 36, 52); // #507bba
+    window.clear(backgroundColor);
+
     threadmillTop.draw(window, font);
     threadmillCenter.draw(window, font);
     threadmillBottom.draw(window, font);
+
     player.draw(window);
+
     window.draw(textScore);
     window.draw(textLives);
+
     window.display();
 }
 

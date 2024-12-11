@@ -29,13 +29,17 @@ public:
 
     std::map<int, Package> getPackages();
 
+    static bool loadTexture();
 private:
     void run();
 
     std::map<int, Package> packages_;
     int y_;
     float packageSpeed_;
-    sf::RectangleShape threadmillShape_;
+    sf::Sprite threadmillShape_;
+    static sf::Texture threadmillTexture_;
+    static bool loaded;
+
     std::thread thread_;
     std::mutex mtx_;
     std::binary_semaphore semaphore_; 

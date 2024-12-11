@@ -7,7 +7,7 @@
 #define HEIGHT 600
 #define INVALID -1
 #define SCORE_INITIAL 0
-#define PACKAGE_SIZE 50
+#define PACKAGE_SIZE 50.0
 #define PACKAGE_SPEED_BASE 150.0f        
 #define PACKAGE_SPEED_INCREMENT 20.0f    
 #define PACKAGE_COLOR sf::Color::Green 
@@ -25,12 +25,12 @@
 #define FONT_PATH "assets/04B_30__.ttf"
 #define THREADMILL_WIDTH WIDTH
 #define PACKAGE_START_X 0.0f
-#define PLAYER_SIZE 50
+#define PLAYER_SIZE 120.0
 #define PLAYER_SPEED 200.0f
 #define PLAYER_COLOR sf::Color::Blue
 #define MAX_LANE 2
 #define MIN_LANE 0
-#define PLAYER_OFFSET_Y 10.0f
+#define PLAYER_OFFSET_Y -50.0f
 #define PACKAGE_SPAWN_INTERVAL_BASE 2.0f     
 #define PACKAGE_SPAWN_INTERVAL_DECREMENT 0.2f  
 #define PACKAGE_SPAWN_INTERVAL_MIN 0.5f        

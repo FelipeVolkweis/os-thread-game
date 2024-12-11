@@ -1,8 +1,19 @@
+#include <iostream>
+
 #include <player.h>
 
+sf::Texture Player::texture_;
+
 Player::Player(const std::vector<int> &laneYs) : laneYs_(laneYs), currentLane_(1) {
-    shape_.setSize(sf::Vector2f(PLAYER_SIZE, PLAYER_SIZE));
-    shape_.setFillColor(PLAYER_COLOR);
+    // shape_.setSize(sf::Vector2f(PLAYER_SIZE, PLAYER_SIZE));
+    // shape_.setFillColor(PLAYER_COLOR);
+    if (!Player::loadTexture()) {
+        std::cout << "Error loading player texture." << std::endl;
+    }
+    float scaleX = PLAYER_SIZE / texture_.getSize().x;
+    float scaleY = PLAYER_SIZE / texture_.getSize().y;
+    shape_.setScale(scaleX, scaleY);
+    shape_.setTexture(texture_);
     shape_.setPosition(WIDTH / 2 - PLAYER_SIZE / 2,
                        laneYs_[currentLane_] + THREADMILL_HEIGHT + PLAYER_OFFSET_Y);
 }
@@ -51,4 +62,8 @@ bool Player::canGrabPackage(const Package &package) const {
 
 int Player::getCurrentLane() const {
     return currentLane_;
+}
+
+bool Player::loadTexture() {
+    return texture_.loadFromFile("assets/trabalhador.png");
 }

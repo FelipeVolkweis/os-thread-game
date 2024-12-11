@@ -24,10 +24,13 @@ public:
 
     int getCurrentLane() const;
 
+    static bool loadTexture();
 private:
-    sf::RectangleShape shape_;
+    sf::Sprite shape_;
     std::vector<int> laneYs_;
     int currentLane_;
+
+    static sf::Texture texture_;
 };
 
 #endif // PLAYER_HH

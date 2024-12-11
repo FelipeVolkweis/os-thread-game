@@ -2,16 +2,26 @@
 
 #include <package.h>
 
+sf::Texture Package::texture_;
+
 Package::Package(int id, float startX, float startY, float speed)
     : id_(id), x_(startX), y_(startY), speed_(speed) {
-    shape_.setSize(sf::Vector2f(PACKAGE_SIZE, PACKAGE_SIZE));
-    shape_.setFillColor(PACKAGE_COLOR);
+    float scaleX = PACKAGE_SIZE / texture_.getSize().x;
+    float scaleY = PACKAGE_SIZE / texture_.getSize().y;
+    // shape_.setSize(sf::Vector2f(PACKAGE_SIZE, PACKAGE_SIZE));
+    // shape_.setFillColor(PACKAGE_COLOR);
+    shape_.setScale(scaleX, scaleY);
+    shape_.setTexture(texture_);
     shape_.setPosition(x_, y_);
 }
 
 Package::Package() : id_(INVALID), x_(0), y_(0), speed_(0) {
-    shape_.setSize(sf::Vector2f(PACKAGE_SIZE, PACKAGE_SIZE));
-    shape_.setFillColor(PACKAGE_COLOR);
+    float scaleX = PACKAGE_SIZE / texture_.getSize().x;
+    float scaleY = PACKAGE_SIZE / texture_.getSize().y;
+    // shape_.setSize(sf::Vector2f(PACKAGE_SIZE, PACKAGE_SIZE));
+    // shape_.setFillColor(PACKAGE_COLOR);
+    shape_.setScale(scaleX, scaleY);
+    shape_.setTexture(texture_);
     shape_.setPosition(x_, y_);
 }
 
@@ -42,4 +52,8 @@ sf::FloatRect Package::getBounds() const {
 
 void Package::setSpeed(float speed) {
     speed_ = speed;
+}
+
+bool Package::loadTexture() {
+    return texture_.loadFromFile("assets/caixa.png");
 }

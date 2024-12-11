@@ -1,10 +1,26 @@
+#include <iostream>
+
 #include <threadmill.h>
+
+sf::Texture Threadmill::threadmillTexture_;
+bool Threadmill::loaded = false;
 
 Threadmill::Threadmill(int y, float packageSpeed)
     : y_(y), packageSpeed_(packageSpeed), semaphore_(0), isActive_(false), stop_(false),
       lostPackages_(0) {
-    threadmillShape_.setSize(sf::Vector2f(THREADMILL_WIDTH, THREADMILL_HEIGHT));
-    threadmillShape_.setFillColor(THREADMILL_COLOR);
+    // threadmillShape_.setSize(sf::Vector2f(THREADMILL_WIDTH, THREADMILL_HEIGHT));
+    // threadmillShape_.setFillColor(THREADMILL_COLOR);
+    if (!loaded) {
+        if (!loadTexture()) {
+            std::cout << "Failed to load threadmill texture" << std::endl;
+        } else {
+            loaded = true;
+        }
+    }
+    float scaleX = static_cast<float>(THREADMILL_WIDTH) / threadmillTexture_.getSize().x;
+    float scaleY = static_cast<float>(THREADMILL_HEIGHT) / threadmillTexture_.getSize().y;
+    threadmillShape_.setScale(scaleX, scaleY);
+    threadmillShape_.setTexture(threadmillTexture_);
     threadmillShape_.setPosition(0.0f, y_);
 
     thread_ = std::thread(&Threadmill::run, this);
@@ -185,4 +201,8 @@ void Threadmill::run() {
                 break;
         }
     }
+}
+
+bool Threadmill::loadTexture() {
+    return threadmillTexture_.loadFromFile("assets/esteira_textura.png");
 }

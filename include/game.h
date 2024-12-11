@@ -16,6 +16,8 @@ public:
     void run();
 
 private:
+    void loadAssets();
+
     void processEvents();
     void handlePlayerAction(sf::Keyboard::Key key);
 

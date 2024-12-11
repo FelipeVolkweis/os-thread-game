@@ -23,12 +23,16 @@ public:
 
     void setSpeed(float speed);
 
+    static bool loadTexture();
+
 private:
     int id_;
     float x_;
     float y_;
     float speed_;
-    sf::RectangleShape shape_;
+    sf::Sprite shape_;
+
+    static sf::Texture texture_;
 };
 
 #endif  // PACKAGE_H
