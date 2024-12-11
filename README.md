@@ -56,17 +56,33 @@ Antes de compilar e executar o jogo, certifique-se de ter os seguintes component
    ```bash
    git clone https://github.com/seu-usuario/threadmill-game.git
    cd threadmill-game
-2. **Instale as Dependências:**
-   ```bash
-   sudo apt-get update
-   sudo apt-get install libsfml-dev g++ make
+2. **Instale as Dependências:** </br>
+    #### a. Ubuntu:
+
+    ```bash
+    sudo apt-get update
+    sudo apt-get install libsfml-dev g++ make
+    ```
+
+    #### b. Fedora:
+
+    ```bash
+    sudo dnf update
+    sudo dnf install SFML-devel g++ make
+    ```
+
+    #### c. Arch Linux:
+
+    ```bash
+    sudo pacman -Syu
+    sudo pacman -S sfml g++ make
+    ```
 3. **Compilação**
-   ```bash
-   make all
+    ```bash
+    make all
 4. **Execução**
     ```bash
     make run
-
 ## Implementação de Threads e Semáforos
 
 1. Utilização de Threads </br>
