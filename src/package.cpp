@@ -4,6 +4,16 @@
 
 sf::Texture Package::texture_;
 
+/**
+ * @brief Construtor da classe Package.
+ * 
+ * Inicializa um objeto Package com um identificador, posição inicial e velocidade.
+ * 
+ * @param id Identificador único do pacote.
+ * @param startX Posição inicial no eixo X.
+ * @param startY Posição inicial no eixo Y.
+ * @param speed Velocidade do pacote.
+ */
 Package::Package(int id, float startX, float startY, float speed)
     : id_(id), x_(startX), y_(startY), speed_(speed) {
     float scaleX = PACKAGE_SIZE / texture_.getSize().x;

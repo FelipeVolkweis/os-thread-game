@@ -10,6 +10,18 @@
 #include <package.h>
 #include <constants.h>
 
+/**
+ * @class Threadmill
+ * @brief Classe que representa uma esteira transportadora de pacotes.
+ * 
+ * A classe Threadmill gerencia pacotes em uma esteira transportadora, permitindo adicionar, remover e ajustar a velocidade dos pacotes.
+ * Também permite ativar e desativar a esteira, além de desenhar a esteira em uma janela gráfica.
+ * 
+ * @note Esta classe utiliza a biblioteca SFML para renderização gráfica.
+ * 
+ * @param y Posição vertical da esteira.
+ * @param packageSpeed Velocidade inicial dos pacotes na esteira.
+ */
 class Threadmill {
 public:
     Threadmill(int y, float packageSpeed);

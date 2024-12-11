@@ -6,6 +6,13 @@
 #include <constants.h>
 #include <package.h>
 
+/**
+ * @class Player
+ * @brief Representa um jogador no jogo.
+ * 
+ * A classe Player gerencia a posição e as ações do jogador, incluindo a troca de faixas, 
+ * manipulação de entrada, desenho na tela e verificação de colisões com pacotes.
+ */
 class Player {
 public:
     Player(const std::vector<int>& laneYs);

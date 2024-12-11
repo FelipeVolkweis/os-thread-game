@@ -3,6 +3,16 @@
 
 #include <SFML/Graphics.hpp>
 
+/**
+ * @class Package
+ * @brief Representa um pacote que pode ser desenhado e atualizado em uma janela de renderização.
+ *
+ * A classe Package encapsula as propriedades e comportamentos de um pacote, incluindo sua posição,
+ * velocidade e forma gráfica. Ela fornece métodos para obter o ID do pacote, verificar sua validade,
+ * atualizar sua posição com base no tempo decorrido, desenhá-lo em uma janela de renderização,
+ * e ajustar sua velocidade. Além disso, a classe gerencia uma textura estática compartilhada entre
+ * todas as instâncias de Package.
+ */
 class Package {
 public:
     Package(int id, float startX, float startY, float speed);
