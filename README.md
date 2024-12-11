@@ -67,7 +67,7 @@ Antes de compilar e executar o jogo, certifique-se de ter os seguintes component
     ```bash
     make run
 
-### Implementação de Threads e Semáforos
+## Implementação de Threads e Semáforos
 
 1. Utilização de Threads </br>
 a. Criação e Gerenciamento de Threads: </br>
@@ -96,7 +96,7 @@ Os mutexes são utilizados para garantir a exclusão mútua ao acessar e modific
 ``` 
 </br>
 
-## Resumo Geral
+### Resumo Geral
 Threads: Cada esteira (Threadmill) possui sua própria thread que gerencia a movimentação dos pacotes de forma independente, permitindo a operação simultânea das três esteiras.
 
 Semáforos: Utilizados para controlar quando cada threadmill deve iniciar a atualização dos pacotes. Apenas a threadmill ativa possui permissão para atualizar seus pacotes, garantindo que o operário esteja trabalhando em apenas uma esteira por vez.
