@@ -66,5 +66,42 @@ Antes de compilar e executar o jogo, certifique-se de ter os seguintes component
 4. **Execução**
     ```bash
     make run
+
+### Implementação de Threads e Semáforos
+
+1. Utilização de Threads </br>
+a. Criação e Gerenciamento de Threads: </br>
+Cada instância da classe Threadmill cria sua própria thread para gerenciar a atualização dos pacotes de forma independente. Isso permite que cada esteira (threadmill) opere simultaneamente sem bloquear a execução principal do jogo. </br>
+```
+  thread_ = std::thread(&Threadmill::run, this);
+```
+
+2. Utilização de Semáforos </br>
+a. Controle de Ativação das Threads: </br>
+Os semáforos são utilizados para controlar quando cada threadmill deve começar a atualizar seus pacotes. Inicialmente, o semáforo é iniciado com 0 permites, fazendo com que a thread fique bloqueada até que seja explicitamente liberada.</br>
+```
+  semaphore_.acquire(); 
+
+  ...
+
+  semaphore_.release();
+```
+
+3. Utilização de Mutexes </br>
+a. Proteção de Recursos Compartilhados </br>
+Os mutexes são utilizados para garantir a exclusão mútua ao acessar e modificar recursos compartilhados, prevenindo condições de corrida (race conditions) entre a thread principal e as threads das threadmills. </br>
+```
+  std::lock_guard<std::mutex> lock(mtx_);
+  packages_.clear();
+``` 
+</br>
+
+## Resumo Geral
+Threads: Cada esteira (Threadmill) possui sua própria thread que gerencia a movimentação dos pacotes de forma independente, permitindo a operação simultânea das três esteiras.
+
+Semáforos: Utilizados para controlar quando cada threadmill deve iniciar a atualização dos pacotes. Apenas a threadmill ativa possui permissão para atualizar seus pacotes, garantindo que o operário esteja trabalhando em apenas uma esteira por vez.
+
+Mutexes: Garantem a exclusão mútua ao acessar e modificar recursos compartilhados como a lista de pacotes e contadores de pacotes perdidos, prevenindo condições de corrida e assegurando a integridade dos dados.
+
 -----
-*Este README foi elaborado para fornecer uma visão abrangente do Threadmill: The Game, facilitando o entendimento, instalação e utilização do jogo. Esperamos que aproveite e contribua para o aprimoramento deste projeto!*
+*Este README foi elaborado para fornecer uma visão abrangente do Threadmill: The Game, facilitando o entendimento, instalação e utilização do jogo.*
